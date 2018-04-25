@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'home'], function() {
+	Route::get('/', 'UsuariosController@index');
+	Route::get('/projetos', 'ProjetosController@projetos');
+	Route::get('/clientes', 'ClientesController@clientes');
 });
