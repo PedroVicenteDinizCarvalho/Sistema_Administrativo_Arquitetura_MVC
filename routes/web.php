@@ -15,4 +15,8 @@ Route::group(['prefix' => 'home'], function() {
 	Route::get('/', 'UsuariosController@index');
 	Route::get('/projetos', 'ProjetosController@projetos');
 	Route::get('/clientes', 'ClientesController@clientes');
+	Route::get('/clientes/adicionar', 'ClientesController@pagAdicionarCliente');
+	Route::post('/criarCliente', 'ClientesController@store');
+	Route::get('/projetos/adicionar', 'ProjetosController@pagAdicionarProjeto');
+	Route::post('/criarProjeto', 'ProjetosController@CriaProjeto');
 });

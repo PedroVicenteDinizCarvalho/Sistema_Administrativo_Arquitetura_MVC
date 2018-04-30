@@ -19,7 +19,7 @@ class Projeto extends Model
       'cliente_id'
   	];
 
-  	protected $table = 'projetos';
+  	protected $table = 'projetos'; 
 
   	public function cliente(){
   		return $this->belongsTo(Cliente::class, 'cliente_id');

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use APP\Usuario;
+use App\Usuario;
+use App\Projeto;
+use App\Cliente;
 use Illuminate\Http\Request;
 
 class UsuariosController extends Controller
 {
-   public function index()
-   {
-   	return view('home.index');
-   }
+	function index(){
+		return view('home.index');
+	}
 }

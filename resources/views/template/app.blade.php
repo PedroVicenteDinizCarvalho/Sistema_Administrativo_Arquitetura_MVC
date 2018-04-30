@@ -26,7 +26,7 @@
          	Projetos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ url('home/adicionarProjetos') }}">Adicionar</a>
+          <a class="dropdown-item" href="{{ url('home/projetos/adicionar') }}">Adicionar</a>
           <a class="dropdown-item" href="{{ url('home/projetosFinalizados') }}">Finalizados</a>
         </div>
       </li>
