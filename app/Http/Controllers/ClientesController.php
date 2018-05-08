@@ -75,4 +75,17 @@ class ClientesController extends Controller
       $cliente->update($request->all());
       return redirect('home/clientes');
    }
+
+   public function deletarView($id)
+   {
+      return view('clientes.delete', [
+         'cliente' => $this->getCliente($id)
+      ]);
+   }
+
+   public function destroy($id)
+   {
+      $this->getCliente($id)->delete();
+      return redirect(url('home/clientes'))->with('sucess', 'Excluido');
+   }
 }

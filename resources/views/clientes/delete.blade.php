@@ -1,27 +1,25 @@
 @extends('template.app')
 
 @section('content')
-  <div class="col-md-12">
-    <h1> Clientes </h1>    
-  </div>
-	<button class="btn btn-primary"><a style="color: #fff" href="{{ url('home/clientes/adicionar') }}"> Adicionar Clientes</a></button>
-
-	<div class="row" style="margin-top: 50px;">
-		@foreach($clientes as $cliente)
-		<div class="col-sm-3" style="margin-top: 5px;">
-			 <div class="card">
+	<h2>Excluir Cliente</h2>
+	<div class="col-md-5">
+		<h5>Deseja realmente excluir o cliente?</h5>
+		<div style="float: right; margin-bottom: 10px;">
+			<a href="{{ url("/home/clientes") }}" class="btn btn-primary">
+				<strong>Voltar</strong>
+				<i style="position: relative; top: 5px;" class="material-icons">arrow_back</i>
+			</a>
+			<a href="{{ url("/home/clientes/$cliente->id/destroy") }}" class="btn btn-danger">
+				<strong>Excluir</strong>
+				<i class="material-icons">delete</i>
+			</a>
+		</div>
+	</div>
+		<div class="card col-md-8">
           <div class="card-header">
             <i class="material-icons">assignment_ind</i>
             <h5 class="card-title">{{ $cliente->nome }}</h5>
           </div>
-          <a style="margin-bottom: 5px;" href="{{ url("home/clientes/$cliente->id/deletar") }}" class="btn btn-primary">
-            <strong>Deletar</strong>
-            <i class="material-icons">delete</i>
-          </a>
-          <a style="float: right;" href="{{ url("home/clientes/$cliente->id/editar") }}" class="btn btn-primary">
-            <strong>Editar</strong>
-            <i class="material-icons">edit</i>
-          </a>
   				<div class="card-body">
     				<p class="card-text">Dados do Cliente:</p>
     				<h6><strong>Tipo:</strong></h6><h6>{{ $cliente->tipoCliente }}</h6>
@@ -34,8 +32,5 @@
               <h6><strong>Projetos do Cliente:</strong></h6><h6>{{ $projeto->nome }}</h6>
             @endforeach
   				</div>
-			 </div>
 		</div>
-		@endforeach  
-	</div>
 @endsection
