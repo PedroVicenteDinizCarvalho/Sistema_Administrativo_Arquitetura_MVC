@@ -21,6 +21,10 @@ class Cliente extends Model
    protected $table = 'clientes';
 
    public function projetos(){
-         return $this->hasMany(Projeto::class, 'cliente_id');
+      return $this->hasMany(Projeto::class, 'cliente_id');
+   }
+
+   public function faturamento(){
+      return $this->hasMany(Faturamento::class, 'cliente_id');
    }
 }

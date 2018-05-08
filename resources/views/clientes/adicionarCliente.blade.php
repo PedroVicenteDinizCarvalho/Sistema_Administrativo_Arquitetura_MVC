@@ -43,7 +43,7 @@
 				<div class="form-group col-md-12">
 					<h4> Projeto </h4>
 					<label for="tipo">Tipo de Projeto:</label>
-					<input type="text" name="tipo" id="tipo" class="form-controll" placeholder="Site, Software etc...">
+					<input type="text" name="tipo" id="tipo" class="form-controll" placeholder="Site, Software, Design Gráfico">
 				</div>
 				<div class="form-group col-md-12">
 					<label for="nome">Nome do Projeto:</label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
 use App\Projeto;
 use Illuminate\Http\Request;
 
@@ -15,16 +16,24 @@ class ProjetosController extends Controller
    	]);
    }
 
+   public function home()
+   {
+      $list_projetos=Projeto::all();
+      return view('home.index', [
+         'projetos' => $list_projetos
+      ]);
+   }
+
    public function pagAdicionarProjeto()
    {
    	return view('projetos.adicionarProjeto');
    }
 
-   //public function CriaProjeto(Request $request)
-  // {
-  // 	Projeto::create($request->all());
-  // 	return redirect('/home/projetos')->with('message', "Projeto criado com sucesso!");
-  // }
+   public function CriaProjeto(Request $request)
+   {
+   	Projeto::create($request->all());
+   	return redirect('/home/projetos')->with('message', "Projeto criado com sucesso!");
+   }
 
    public function store(Projeto $projeto)
    {

@@ -10,8 +10,11 @@
 		@foreach($clientes as $cliente)
 		<div class="col-sm-3" style="margin-top: 5px;">
 			 <div class="card">
-          <h6><span class="badge badge-secondary">{{ $cliente->id }}</span></h6>
-          <h5 class="card-title">{{ $cliente->nome }}</h5>
+          <div class="card-header">
+            <h6><span class="badge badge-secondary">{{ $cliente->id }}</span></h6>
+            <h5 class="card-title">{{ $cliente->nome }}</h5>
+          </div>
+          <a style="float: right;" href="{{ url("home/clientes/$cliente->id/editar") }}" class="btn btn-primary">Editar</a>
   				<div class="card-body">
     				<p class="card-text">Dados do Cliente:</p>
     				<h6><strong>Tipo:</strong></h6><h6>{{ $cliente->tipoCliente }}</h6>

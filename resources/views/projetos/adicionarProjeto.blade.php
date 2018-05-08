@@ -9,7 +9,7 @@
 			{{ csrf_field() }}
 			<div class="form-group col-md-12">
 				<label for="tipo" class="control-label">Tipo de Projeto:</label>
-				<input type="text" name="tipo" id="tipo" class="form-control" placeholder="Site, Software, Consultoria" Required>
+				<input type="text" name="tipo" id="tipo" class="form-control" placeholder="Site, Software, Consultoria, Design Gráfico" Required>
 				<label for="nome">Nome do Projeto:</label>
 				<input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Projeto" Required>
 				<label for="prazoEntrega">Prazo de Entrega:</label>

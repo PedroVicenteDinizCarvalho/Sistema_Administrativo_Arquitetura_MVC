@@ -19,4 +19,8 @@ Route::group(['prefix' => 'home'], function() {
 	Route::post('/criarCliente', 'ClientesController@store');
 	Route::get('/projetos/adicionar', 'ProjetosController@pagAdicionarProjeto');
 	Route::post('/criarProjeto', 'ProjetosController@CriaProjeto');
+	Route::get('/', 'ProjetosController@home');
+	Route::get('/', 'ClientesController@home');
+	Route::get('/clientes/{id}/editar', 'ClientesController@editarView');
+	Route::post('/clientes/update', 'ClientesController@update');
 });

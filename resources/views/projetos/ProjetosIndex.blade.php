@@ -8,8 +8,10 @@
 		@foreach($projetos as $projeto)
 		 <div class="col-sm-3" style="margin-top: 5px;">
 	 		<div class="card">
-				<h6><span class="badge badge-secondary">{{ $projeto->id }}</span></h6>
-  				<h5 class="card-title">{{ $projeto->nome }}</h5>
+	 			<div class="card-header">
+					<h6><span class="badge badge-secondary">{{ $projeto->id }}</span></h6>
+  					<h5 class="card-title">{{ $projeto->nome }}</h5>
+	 			</div>
   				<div class="card-body">
     				<p class="card-text">Dados do Projeto:</p>
     				<h6><strong>Tipo de Projeto:</strong></h6><h6>{{ $projeto->tipo }}</h6>

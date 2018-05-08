@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class ClientesController extends Controller
 {
    private $projetos_controller;
+   private $cliente;
 
    public function __construct(ProjetosController $projetos_controller)
    {
       $this->projetos_controller = $projetos_controller;
+      $this->cliente = new Cliente();
    }
 
    public function clientes()
@@ -21,6 +23,14 @@ class ClientesController extends Controller
    	return view('clientes.clientesIndex', [
    		'clientes' => $list_clientes
    	]);
+   }
+
+   public function home()
+   {
+      $list_clientes=Cliente::all();
+      return view('home.index', [
+         'clientes' => $list_clientes
+      ]);
    }
 
    public function pagAdicionarCliente()
@@ -45,5 +55,24 @@ class ClientesController extends Controller
             $this->projetos_controller->store($projeto);
          }
    		return redirect('/home/clientes')->with('message', "Cliente criado com sucesso");
+   }
+
+   public function editarView($id)
+   {
+      return view('clientes.editCliente', [
+         'cliente' => $this->getCliente($id)
+      ]);
+   }
+
+   protected function getCliente($id)
+   {
+      return $this->cliente->find($id);
+   }
+
+   public function update(Request $request)
+   {
+      $cliente = $this->getCliente($request->id);
+      $cliente->update($request->all());
+      return redirect('home/clientes');
    }
 }

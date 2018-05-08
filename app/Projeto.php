@@ -24,4 +24,8 @@ class Projeto extends Model
   	public function cliente(){
   		return $this->belongsTo(Cliente::class, 'cliente_id');
   	}
+
+    public function faturamento(){
+      return $this->hasMany(Faturamento::class, 'projeto_id');
+    }
 }
