@@ -9,7 +9,7 @@
 		 <div class="col-sm-3" style="margin-top: 5px;">
 	 		<div class="card">
 	 			<div class="card-header">
-					<h6><span class="badge badge-secondary">{{ $projeto->id }}</span></h6>
+					<i class="material-icons">folder</i>
   					<h5 class="card-title">{{ $projeto->nome }}</h5>
 	 			</div>
   				<div class="card-body">

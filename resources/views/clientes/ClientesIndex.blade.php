@@ -8,7 +8,7 @@
 
 	<div class="row" style="margin-top: 50px;">
 		@foreach($clientes as $cliente)
-		<div class="col-sm-3" style="margin-top: 5px;">
+		<div class="col-sm-4" style="margin-top: 5px;">
 			 <div class="card">
           <div class="card-header">
             <i class="material-icons">assignment_ind</i>
@@ -30,8 +30,9 @@
     				<h6><strong>Telefone:</strong></h6><h6>({{ $cliente->dddTelefone }})-{{ $cliente->foneTelefone }}</h6>
     				<h6><strong>Email:</strong></h6><h6>{{ $cliente->email }}</h6>
     				<h6>Cliente Desde:<strong></strong></h6><h6>{{ $cliente->created_at}}</h6>
+            <h6><strong>Projetos do Cliente:</strong></h6>
             @foreach($cliente->projetos as $projeto)
-              <h6><strong>Projetos do Cliente:</strong></h6><h6>{{ $projeto->nome }}</h6>
+              <h6 class="col-md-10"><i style="padding-right: 30px; position: relative; top: 5px;" class="material-icons col-md-1">local_cafe</i> {{ $projeto->nome }}</h6>
             @endforeach
   				</div>
 			 </div>
