@@ -28,9 +28,9 @@
     				<h6><strong>Telefone:</strong></h6><h6>({{ $cliente->dddTelefone }})-{{ $cliente->foneTelefone }}</h6>
     				<h6><strong>Email:</strong></h6><h6>{{ $cliente->email }}</h6>
     				<h6>Cliente Desde:<strong></strong></h6><h6>{{ $cliente->created_at}}</h6>
-            @foreach($cliente->projetos as $projeto)
-              <h6><strong>Projetos do Cliente:</strong></h6><h6>{{ $projeto->nome }}</h6>
-            @endforeach
+            		@foreach($cliente->projetos as $projeto)
+              			<h6><strong>Projetos do Cliente:</strong></h6><h6>{{ $projeto->nome }}</h6>
+            		@endforeach
   				</div>
 		</div>
 @endsection

@@ -79,6 +79,19 @@ class ProjetosController extends Controller
       return redirect('home/projetos');
    }
 
+   public function deletarView($id)
+   {
+      return view('projetos.delete', [
+         'projeto' => $this->getProjeto($id)
+      ]);
+   }
+
+   public function destroy($id)
+   {
+      $this->getProjeto($id)->delete();
+      return redirect(url('home/projetos'));
+   }
+
    private function validacao($data)
    {
       $regras['tipo'] = 'required';

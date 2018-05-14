@@ -26,5 +26,7 @@ Route::group(['prefix' => 'home'], function() {
 	Route::get('/clientes/{id}/deletar', 'ClientesController@deletarView');
 	Route::get('/clientes/{id}/destroy', 'ClientesController@destroy');
 	Route::get('/projetos/{id}/editar', 'ProjetosController@editarView');
-	Route::post('projetos/update', 'ProjetosController@update');
+	Route::post('/projetos/update', 'ProjetosController@update');
+	Route::get('/projetos/{id}/deletar', 'ProjetosController@deletarView');
+	Route::get('/projetos/{id}/destroy', 'ProjetosController@destroy');
 });

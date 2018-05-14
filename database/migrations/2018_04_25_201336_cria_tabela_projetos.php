@@ -24,7 +24,7 @@ class CriaTabelaProjetos extends Migration
             $table->integer('parcelasPagamento');
             $table->string('tipoParcelasPagamento');
             $table->integer('cliente_id')->unsigned();
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->timestamps();
         });
     }
