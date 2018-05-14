@@ -25,4 +25,6 @@ Route::group(['prefix' => 'home'], function() {
 	Route::post('/clientes/update', 'ClientesController@update');
 	Route::get('/clientes/{id}/deletar', 'ClientesController@deletarView');
 	Route::get('/clientes/{id}/destroy', 'ClientesController@destroy');
+	Route::get('/projetos/{id}/editar', 'ProjetosController@editarView');
+	Route::post('projetos/update', 'ProjetosController@update');
 });

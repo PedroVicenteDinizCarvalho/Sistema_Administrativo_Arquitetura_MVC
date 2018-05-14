@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjetosController extends Controller
 {
+   private $projeto;
+   public function __construct()
+   {
+      $this->projeto = new Projeto();
+   }
+
    public function projetos()
    {
    	$list_projetos=Projeto::all();
@@ -37,7 +43,7 @@ class ProjetosController extends Controller
       if($validacao->fails()){
          return redirect()->back()
             ->withErrors($validacao->errors())
-            ->withIputs($request->all());
+            ->withInput($request->all());
       }
 
    	Projeto::create($request->all());
@@ -51,6 +57,26 @@ class ProjetosController extends Controller
       } catch (\Exception $e) {
          return "ERRO: " . $e->getMessage();
       }
+   }
+
+   public function editarView($id)
+   {  
+      return view('projetos.editProjeto', [
+         'projeto' => $this->getProjeto($id)
+      ]);
+   }
+
+   public function update(Request $request)
+   {
+      $validacao = $this->validacao($request->all());
+      if($validacao->fails()){
+            return redirect()->back()
+               ->withErrors($validacao->errors())
+               ->withInput($request->all());
+      }
+      $projeto = $this->getProjeto($request->id);
+      $projeto->update($request->all());
+      return redirect('home/projetos');
    }
 
    private function validacao($data)
@@ -69,5 +95,10 @@ class ProjetosController extends Controller
          'valor.required' => 'Campo Valor Obrigatório / Use 0 caso seja grátis'
       ];
       return Validator::make($data, $regras, $mensagens);  
+   }
+
+   protected function getProjeto($id)
+   {
+      return $this->projeto->find($id);
    }
 }

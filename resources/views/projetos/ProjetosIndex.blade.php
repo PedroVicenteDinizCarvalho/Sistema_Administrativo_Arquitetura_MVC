@@ -12,6 +12,7 @@
 					<i class="material-icons">folder</i>
   					<h5 class="card-title">{{ $projeto->nome }}</h5>
 	 			</div>
+	 			<a href="{{ url("home/projetos/$projeto->id/editar") }}" class="btn btn-primary">Editar <i class="material-icons">edit</i></a>
   				<div class="card-body">
     				<p class="card-text">Dados do Projeto:</p>
     				<h6><strong>Tipo de Projeto:</strong></h6><h6>{{ $projeto->tipo }}</h6>
