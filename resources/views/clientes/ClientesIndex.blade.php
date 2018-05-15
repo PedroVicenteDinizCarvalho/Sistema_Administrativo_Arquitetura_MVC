@@ -1,8 +1,28 @@
 @extends('template.app')
 
 @section('content')
-  <div class="col-md-12">
-    <h1> Clientes </h1>    
+  <div class="col-md-12 row">
+    <h1 class="col-md-9"> Clientes </h1>
+<!-- Formulário de Busca -->
+    <div class="col-md-3">
+        <form action="{{ url('home/clientes/busca') }}" method="POST">
+          {{ csrf_field() }}
+          <input name="criterio" type="text" class="form-control" placeholder="Buscar...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="material-icons">search</i></button>
+          </span>
+        </form>
+      </div>  
+  </div>
+<!-- Seleção de criterio por letra -->
+  <div class="col-sm-12 row">
+    <div class="btn-group btn-group-justified">
+      @foreach(range('A', 'Z') as $letra)
+        <a href="{{ url('home/clientes/criterio/' . $letra) }}" class="btn btn-primary">
+          {{ $letra }}
+        </a>
+      @endforeach
+    </div>
   </div>
 	<button class="btn btn-primary"><a style="color: #fff" href="{{ url('home/clientes/adicionar') }}"> Adicionar Clientes</a></button>
 

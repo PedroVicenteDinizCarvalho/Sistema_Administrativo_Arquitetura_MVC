@@ -21,10 +21,28 @@ class ClientesController extends Controller
 
    public function clientes()
    {
-   	$list_clientes=Cliente::all();
-   	return view('clientes.clientesIndex', [
-   		'clientes' => $list_clientes
-   	]);
+      $list_clientes=Cliente::all();
+      return view('clientes.clientesIndex', [
+         'clientes' => $list_clientes
+      ]);
+   }
+
+   public function clientesCriterio($letra)
+   {
+      $list_clientes=Cliente::clientesLetra($letra);
+      return view('clientes.clientesIndex', [
+         'clientes' => $list_clientes,
+         'criterio' => $letra
+      ]);
+   }
+
+   public function busca(Request $request)
+   {
+      $clientes = Cliente::busca($request->criterio);
+      return view('clientes.clientesIndex', [
+         'clientes' => $clientes,
+         'criterio' => $request->criterio
+      ]);
    }
 
    public function home()

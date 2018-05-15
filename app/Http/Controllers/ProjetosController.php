@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class ProjetosController extends Controller
 {
    private $projeto;
+   
    public function __construct()
    {
       $this->projeto = new Projeto();

@@ -27,4 +27,14 @@ class Cliente extends Model
    public function faturamento(){
       return $this->hasMany(Faturamento::class, 'cliente_id');
    }
+
+   public static function clientesLetra($letra)
+   {
+      return static::where('nome', 'LIKE', $letra . '%')->get();
+   }
+
+   public static function busca($criterio)
+   {
+      return static::where('nome', 'LIKE', '%' . $criterio . '%')->get();
+   }
 }
