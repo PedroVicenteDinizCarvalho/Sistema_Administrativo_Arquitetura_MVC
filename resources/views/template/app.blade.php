@@ -33,7 +33,7 @@
         </div>
       </li>
       <div class="nav-item">
-        <a class="nav-link" href="{{ url('home/faturamento') }}">Faturamento</a>
+        <a class="nav-link" href="{{ url('home/faturamentos') }}">Faturamento</a>
       </div>
       <div class="nav-item">
         <a href="{{ url('home/clientes') }}" class="nav-link">Clientes</a>

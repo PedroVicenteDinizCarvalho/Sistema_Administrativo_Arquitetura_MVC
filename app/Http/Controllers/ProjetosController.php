@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Projeto;
+use App\Faturamento;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +24,15 @@ class ProjetosController extends Controller
    	return view('projetos.ProjetosIndex', [
    		'projetos' => $list_projetos
    	]);
+   }
+
+   public function busca($criterio)
+   {
+      $projetos = Projeto::buscaProjeto($request->criterio);
+      return view('projetos.ProjetosIndex', [
+         'projetos' => $projetos,
+         'criterio' => $request->criterio
+      ]);
    }
 
    public function home()

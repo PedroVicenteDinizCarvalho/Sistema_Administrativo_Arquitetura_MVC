@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFaturamentosTable extends Migration
+class CriaTabelaFaturamentos extends Migration
 {
     /**
      * Run the migrations.
@@ -15,15 +15,11 @@ class CreateFaturamentosTable extends Migration
     {
         Schema::create('faturamentos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cliente_id')->unsigned();
-            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->integer('faturaFinalizada');
             $table->integer('projeto_id')->unsigned();
             $table->foreign('projeto_id')->references('id')->on('projetos');
-            $table->integer('projeto_parcelas')->unsigned();
-            $table->foreign('projeto_parcelas')->references('parcelasPagamento')->on('projetos');
-            $table->decimal('valor')->unsigned();
-            $table->foreign('valor')->references('valor')->on('projetos');
-            $table->// Terminar a parte de faturamento, Verificar Chaves Estrangeiras
+            $table->integer('parcelasPagas');
+            $table->string('metodoUltimoPagamento');
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateFaturamentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faturamentos');
+        Schema::dropIfExists('Faturamento');
     }
 }

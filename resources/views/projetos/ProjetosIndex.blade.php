@@ -1,8 +1,13 @@
 @extends('template.app')
 
 @section('content')
-	<div class="col-md-12">
-		<h1>Projetos</h1>
+	<div class="col-md-12 row">
+		<h1 class="col-md-9">Projetos</h1>
+		 <form class="form-inline col-md-3">
+		 	{{ csrf_field() }}
+      		<input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" name="criterio">
+      		<button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
+    	</form>
 	</div>
 	<div class="row">
 		@foreach($projetos as $projeto)

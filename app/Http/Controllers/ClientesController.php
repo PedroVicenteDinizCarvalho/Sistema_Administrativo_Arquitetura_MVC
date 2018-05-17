@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Projeto;
 use App\Cliente;
+use App\Faturamento;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;

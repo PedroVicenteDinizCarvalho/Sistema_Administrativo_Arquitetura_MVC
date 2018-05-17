@@ -19,20 +19,16 @@ class Cliente extends Model
    ];
 
    protected $table = 'clientes';
-
+//Relação com Projeto
    public function projetos(){
       return $this->hasMany(Projeto::class, 'cliente_id');
    }
-
-   public function faturamento(){
-      return $this->hasMany(Faturamento::class, 'cliente_id');
-   }
-
+//Critério de busca por Letra
    public static function clientesLetra($letra)
    {
       return static::where('nome', 'LIKE', $letra . '%')->get();
    }
-
+//Critério de Busca
    public static function busca($criterio)
    {
       return static::where('nome', 'LIKE', '%' . $criterio . '%')->get();

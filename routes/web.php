@@ -12,24 +12,34 @@
 */
 
 Route::group(['prefix' => 'home'], function() {
+//Páginas Principais
 	Route::get('/', 'UsuariosController@index');
 	Route::get('/projetos', 'ProjetosController@projetos');
-//Cliente passando letra como critério
 	Route::get('/clientes', 'ClientesController@clientes');
+	Route::get('/faturamentos', 'FaturamentosController@faturamentos');
+
 	Route::get('/clientes/adicionar', 'ClientesController@pagAdicionarCliente');
 	Route::post('/criarCliente', 'ClientesController@store');
 	Route::get('/projetos/adicionar', 'ProjetosController@pagAdicionarProjeto');
 	Route::post('/criarProjeto', 'ProjetosController@CriaProjeto');
 	Route::get('/', 'ProjetosController@home');
 	Route::get('/', 'ClientesController@home');
+//Atualizar Clientes
 	Route::get('/clientes/{id}/editar', 'ClientesController@editarView');
 	Route::post('/clientes/update', 'ClientesController@update');
+//Pesquisar Clientes
 	Route::post('/clientes/busca', 'ClientesController@busca');
+//Deletar Clientes
 	Route::get('/clientes/{id}/deletar', 'ClientesController@deletarView');
 	Route::get('/clientes/{id}/destroy', 'ClientesController@destroy');
+//Atualizar Projetos
 	Route::get('/projetos/{id}/editar', 'ProjetosController@editarView');
 	Route::post('/projetos/update', 'ProjetosController@update');
+//Deletar Projetos
 	Route::get('/projetos/{id}/deletar', 'ProjetosController@deletarView');
 	Route::get('/projetos/{id}/destroy', 'ProjetosController@destroy');
+//Pesquisar Projetos
+	Route::post('/projetos/busca', 'ProjetosController@busca');
+//Clientes passando letra como critério
 	Route::get('/clientes/criterio/{letra}', 'ClientesController@clientesCriterio');
 });

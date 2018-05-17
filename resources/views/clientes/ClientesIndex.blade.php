@@ -4,7 +4,7 @@
   <div class="col-md-12 row">
     <h1 class="col-md-9"> Clientes </h1>
 <!-- Formulário de Busca -->
-    <div class="col-md-3">
+      <div class="col-md-3">
         <form action="{{ url('home/clientes/busca') }}" method="POST">
           {{ csrf_field() }}
           <input name="criterio" type="text" class="form-control" placeholder="Buscar...">

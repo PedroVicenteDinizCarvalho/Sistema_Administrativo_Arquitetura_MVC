@@ -20,12 +20,16 @@ class Projeto extends Model
   	];
 
   	protected $table = 'projetos'; 
-
+//Relação com Cliente
   	public function cliente(){
   		return $this->belongsTo(Cliente::class, 'cliente_id');
   	}
-
+//Relação com Faturamento
     public function faturamento(){
-      return $this->hasMany(Faturamento::class, 'projeto_id');
+      return $this->hasOne(App\Faturamento, 'id');
+    }
+//Critério de Busca
+    public static function buscaProjeto($criterio){
+      return static::where('nome', 'LIKE', '%' . $criterio . '%');
     }
 }
