@@ -15,11 +15,12 @@ class CriaTabelaFaturamentos extends Migration
     {
         Schema::create('faturamentos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('faturaFinalizada');
             $table->integer('projeto_id')->unsigned();
             $table->foreign('projeto_id')->references('id')->on('projetos');
+            $table->integer('numeroParcelas');
+            $table->decimal('valor');
             $table->integer('parcelasPagas');
-            $table->string('metodoUltimoPagamento');
+            $table->string('metodoPagamento');
             $table->timestamps();
         });
     }

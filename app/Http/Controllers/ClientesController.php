@@ -72,7 +72,7 @@ class ClientesController extends Controller
          if ($request->tipo && $request->nome && $request->prazoEntrega && $request->tipoPrazoEntrega && $request->valor && $request->metodoPagamento && $request->parcelasPagamento && $request->tipoParcelasPagamento){
             $projeto = new Projeto();
             $projeto->tipo = $request->tipo;
-            $projeto->nome = $request->nome;
+            $projeto->nome = $request->nomeProjeto;
             $projeto->prazoEntrega = $request->prazoEntrega;
             $projeto->tipoPrazoEntrega = $request->tipoPrazoEntrega;
             $projeto->valor = $request->valor;

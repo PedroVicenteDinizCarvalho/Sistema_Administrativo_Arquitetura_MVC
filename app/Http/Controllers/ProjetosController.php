@@ -103,6 +103,13 @@ class ProjetosController extends Controller
       return redirect(url('home/projetos'));
    }
 
+   public function faturar($id)
+   {
+      return view('faturamentos.faturamentoDeProjeto', [
+         'projeto' => $this->getProjeto($id)
+      ]);
+   }
+
    private function validacao($data)
    {
       $regras['tipo'] = 'required';

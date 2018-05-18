@@ -8,15 +8,16 @@ class faturamento extends Model
 {
    protected $fillable = [
    	'id',
-   	'faturaFinalizada',
       'projeto_id',
+      'numeroParcelas',
+      'valor',
       'parcelasPagas',
-      'metodoUltimoPagamento'
+      'metodoPagamento'
    ];
 
    protected $table = 'faturamentos';
 //Relação com Projeto
    public function projeto(){
-   	return $this->hasMany(App\Projeto);
+   	return $this->hasMany(Projeto::class, 'id');
    }
 }

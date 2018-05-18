@@ -73,7 +73,7 @@
 						{{ $errors->first('email') }}
 					@endif
 				</div>
-
+				<!-- Formulário criação Projeto -->
 				<div class="form-group col-md-12">
 					<h4> Projeto </h4>
 					<label for="tipo"><h6>Tipo de Projeto:</h6></label>

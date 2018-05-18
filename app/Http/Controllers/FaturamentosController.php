@@ -17,7 +17,13 @@ class FaturamentosController extends Controller
     {
     	$list_faturamentos=Faturamento::all();
     	return view('faturamentos.faturamentosIndex', [
-    		'faturamentos' => $list_faturamentos
-    	]);
+    		'faturamentos' => $list_faturamentos->all()
+    	]);	
+    }
+
+    public function faturarProjeto(Request $request)
+    {
+    	$faturamento=Faturamento::create($request->all());
+    	return redirect('home/faturamentos/faturamentosIndex');
     }
 }

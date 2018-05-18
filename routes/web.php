@@ -17,11 +17,13 @@ Route::group(['prefix' => 'home'], function() {
 	Route::get('/projetos', 'ProjetosController@projetos');
 	Route::get('/clientes', 'ClientesController@clientes');
 	Route::get('/faturamentos', 'FaturamentosController@faturamentos');
-
+//Formulário e Criação de Clientes
 	Route::get('/clientes/adicionar', 'ClientesController@pagAdicionarCliente');
 	Route::post('/criarCliente', 'ClientesController@store');
+//Formulário e Criação de Projetos
 	Route::get('/projetos/adicionar', 'ProjetosController@pagAdicionarProjeto');
 	Route::post('/criarProjeto', 'ProjetosController@CriaProjeto');
+//Envio de Dados para página Home
 	Route::get('/', 'ProjetosController@home');
 	Route::get('/', 'ClientesController@home');
 //Atualizar Clientes
@@ -38,6 +40,9 @@ Route::group(['prefix' => 'home'], function() {
 //Deletar Projetos
 	Route::get('/projetos/{id}/deletar', 'ProjetosController@deletarView');
 	Route::get('/projetos/{id}/destroy', 'ProjetosController@destroy');
+//Faturar Projeto
+	Route::get('/projetos/{id}/faturar', 'ProjetosController@faturar');
+	Route::post('/projetos/faturar', 'FaturamentosController@faturarProjeto');
 //Pesquisar Projetos
 	Route::post('/projetos/busca', 'ProjetosController@busca');
 //Clientes passando letra como critério
