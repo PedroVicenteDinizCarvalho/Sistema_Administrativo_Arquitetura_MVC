@@ -15,11 +15,13 @@
   		<div class="card-header">
 			<h6 class="card-title"><strong>Nome: </strong>{{$projeto->nome}}</h6>
 			<h6><strong>Tipo: </strong>{{$projeto->tipo}}</h6>
+			<h6><strong>ID Cliente: </strong>{{$projeto->cliente_id}}</h6>
   		</div>
   		<div class="card-body">
     		<form action="{{ url('home/projetos/faturar') }}" method="POST">
 			{{ csrf_field() }}
 				<input type="hidden" name="projeto_id" value="{{ $projeto->id }}">
+				<input type="hidden" name="cliente_id" value="{{ $projeto->cliente_id }}">
 				<input type="hidden" name="numeroParcelas" value="{{ $projeto->parcelasPagamento}}">
 				<input type="hidden" name="valor" value="{{$projeto->valor}}">
 				<div class="form-group col-md-12">

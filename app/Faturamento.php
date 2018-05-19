@@ -9,6 +9,7 @@ class faturamento extends Model
    protected $fillable = [
    	'id',
       'projeto_id',
+      'cliente_id',
       'numeroParcelas',
       'valor',
       'parcelasPagas',
@@ -19,5 +20,9 @@ class faturamento extends Model
 //Relação com Projeto
    public function projeto(){
    	return $this->hasMany(Projeto::class, 'id');
+   }
+//Relação com Cliente
+   public function cliente(){
+      return $this->belongsTo(Cliente::class, 'cliente_id');
    }
 }

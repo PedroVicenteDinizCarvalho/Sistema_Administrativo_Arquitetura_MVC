@@ -23,8 +23,8 @@ Route::group(['prefix' => 'home'], function() {
 //Formulário e Criação de Projetos
 	Route::get('/projetos/adicionar', 'ProjetosController@pagAdicionarProjeto');
 	Route::post('/criarProjeto', 'ProjetosController@CriaProjeto');
-//Envio de Dados para página Home
-	Route::get('/', 'ProjetosController@home');
+//Envio de Dados para view Home
+	Route::get('/', 'FaturamentosController@home');
 	Route::get('/', 'ClientesController@home');
 //Atualizar Clientes
 	Route::get('/clientes/{id}/editar', 'ClientesController@editarView');
