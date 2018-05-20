@@ -29,10 +29,10 @@
         @foreach($cliente->faturamentos as $faturamento)
           @if($faturamento->numeroParcelas === $faturamento->parcelasPagas)
             <p><strong><i class="material-icons">money_off</i></strong></p>
-            @endif
-            @if($faturamento->numeroParcelas > $faturamento->parcelasPagas)
-              <p><strong><i class="material-icons">monetization_on</i></strong></p>
-            @endif
+          @endif
+          @if($faturamento->numeroParcelas > $faturamento->parcelasPagas)
+            <p><strong><i class="material-icons">monetization_on</i></strong></p>
+          @endif
         @endforeach
       </td>
     </tr>

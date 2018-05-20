@@ -26,12 +26,4 @@ class FaturamentosController extends Controller
     	$faturamento=Faturamento::create($request->all());
     	return redirect('/home/faturamentos');
     }
-
-    public function home()
-    {
-    	$list_faturamentos=Faturamento::all();
-    	return view('home.index', [
-    		'faturamentos' => $list_faturamentos->all()
-    	]);
-    }
 }
