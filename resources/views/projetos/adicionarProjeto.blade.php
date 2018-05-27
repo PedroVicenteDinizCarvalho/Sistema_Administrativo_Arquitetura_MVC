@@ -86,6 +86,8 @@
 					<input type="radio" name="tipoParcelasPagamento" id="tipoParcelasPagamento4" value="aVista" Required>
 					<span>À Vista</span>
 				</label></p><br/>
+				<label for="entrada"><h6>Entrada N°:</h6></label>
+				<input type="number" name="entrada" id="entrada" class="form-control">
 				<label for="cliente_id"><h6>Id do Cliente:</h6></label>
 				<input type="number" name="cliente_id" id="cliente_id" class="form-control" Required>
 			</div>

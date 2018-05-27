@@ -68,7 +68,7 @@ class ClientesController extends Controller
                ->withInput($request->all());
          }
    		$cliente = Cliente::create($request->all());
-//Caso tenha o formulárip projeto preenchido
+//Caso tenha o formulário projeto preenchido
          if ($request->tipo && $request->nome && $request->prazoEntrega && $request->tipoPrazoEntrega && $request->valor && $request->metodoPagamento && $request->parcelasPagamento && $request->tipoParcelasPagamento){
             $projeto = new Projeto();
             $projeto->tipo = $request->tipo;

@@ -13,6 +13,20 @@ class FaturamentosController extends Controller
 {
     private $faturamento;
 
+    public function __construct()
+    {
+        $this->faturamento = new Faturamento();
+    }
+
+    public function criarFaturamento(Faturamento $faturamento)
+    {
+        try {
+            $faturamento->save();
+        }catch (\Exception $e) {
+           return "ERRO: " . $e->getMessage();
+        }
+    }
+
     public function faturamentos()
     {
     	$list_faturamentos=Faturamento::all();
@@ -21,7 +35,7 @@ class FaturamentosController extends Controller
     	]);	
     }
 
-    public function faturarProjeto(Request $request)
+    public function faturaProjeto(Request $request)
     {
     	$faturamento=Faturamento::create($request->all());
     	return redirect('/home/faturamentos');

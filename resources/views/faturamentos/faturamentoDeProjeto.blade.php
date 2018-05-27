@@ -7,7 +7,7 @@
 	<div class="col-md-12">
 		<div class="alert alert-danger">
 			<h6>Faturar o projeto <strong>{{$projeto->nome}}</strong></h6>
-			<a href="{{ url("home/projetos/faturar") }}"></a>
+			<a href="{{ url("home/projetos") }}" class="btn btn-primary">Voltar</a>
 		</div>
 	</div>
 	<!-- Card com dados do projeto a ser faturado-->
@@ -24,6 +24,7 @@
 				<input type="hidden" name="cliente_id" value="{{ $projeto->cliente_id }}">
 				<input type="hidden" name="numeroParcelas" value="{{ $projeto->parcelasPagamento}}">
 				<input type="hidden" name="valor" value="{{$projeto->valor}}">
+				<input type="hidden" name="nome_projeto" value="{{$projeto->nome}}">
 				<div class="form-group col-md-12">
 					<label for="parcelasPagas"><h6>Nº de Parcelas:</h6></label>
 					<input type="number" name="parcelasPagas" id="parcelasPagas" class="form-group" placeholder="Parcelas para Faturamento" max="{{ $projeto->parcelasPagamento}}" min="1">

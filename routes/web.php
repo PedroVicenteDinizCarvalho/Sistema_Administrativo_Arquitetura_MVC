@@ -39,9 +39,9 @@ Route::group(['prefix' => 'home'], function() {
 //Deletar Projetos
 	Route::get('/projetos/{id}/deletar', 'ProjetosController@deletarView');
 	Route::get('/projetos/{id}/destroy', 'ProjetosController@destroy');
-//Faturar Projeto
+//Faturar Projeto -- Mandar Para área de Faturamento
 	Route::get('/projetos/{id}/faturar', 'ProjetosController@faturar');
-	Route::post('/projetos/faturar', 'FaturamentosController@faturarProjeto');
+	Route::post('/projetos/faturar', 'FaturamentosController@faturaProjeto');
 //Pesquisar Projetos
 	Route::post('/projetos/busca', 'ProjetosController@busca');
 //Clientes passando letra como critério

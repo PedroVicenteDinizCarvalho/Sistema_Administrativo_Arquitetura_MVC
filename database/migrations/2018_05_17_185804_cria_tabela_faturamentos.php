@@ -19,6 +19,7 @@ class CriaTabelaFaturamentos extends Migration
             $table->foreign('projeto_id')->references('id')->on('projetos');
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->string('nome_projeto');
             $table->integer('numeroParcelas');
             $table->decimal('valor');
             $table->integer('parcelasPagas');

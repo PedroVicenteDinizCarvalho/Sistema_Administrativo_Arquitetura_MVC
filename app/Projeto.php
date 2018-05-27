@@ -26,7 +26,7 @@ class Projeto extends Model
   	}
 //Relação com Faturamento
     public function faturamento(){
-      return $this->hasOne(App\Faturamento, 'id');
+      return $this->hasOne(Faturamento::class, 'id');
     }
 //Critério de Busca
     public static function buscaProjeto($criterio){

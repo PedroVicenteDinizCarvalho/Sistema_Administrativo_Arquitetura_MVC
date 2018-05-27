@@ -8,8 +8,9 @@ class faturamento extends Model
 {
    protected $fillable = [
    	'id',
-      'projeto_id',
       'cliente_id',
+      'projeto_id',
+      'nome_projeto',
       'numeroParcelas',
       'valor',
       'parcelasPagas',

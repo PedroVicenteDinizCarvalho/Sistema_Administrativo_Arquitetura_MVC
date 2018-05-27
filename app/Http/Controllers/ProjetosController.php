@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjetosController extends Controller
 {
+   private $faturamentos_controller;
    private $projeto;
    
-   public function __construct()
+   public function __construct(FaturamentosController $faturamentos_controller)
    {
+      $this->faturamentos_controller = $faturamentos_controller;
       $this->projeto = new Projeto();
    }
 
@@ -56,9 +58,24 @@ class ProjetosController extends Controller
             ->withErrors($validacao->errors())
             ->withInput($request->all());
       }
-
-   	Projeto::create($request->all());
-   	return redirect('/home/projetos')->with('message', "Projeto criado com sucesso!");
+   	$projeto = Projeto::create($request->all());
+//Injeção de dependencia faturamentos
+      if($request->metodoPagamento){
+         $faturamento = new Faturamento();
+         $faturamento->cliente_id = $request->cliente_id;
+         $faturamento->projeto_id = $projeto->id;
+         $faturamento->nome_projeto = $request->nome;
+         $faturamento->numeroParcelas = $request->numeroParcelas;
+         $faturamento->valor = $request->valor;
+         if($request->entrada){
+            $faturamento->parcelasPagas = $request->entrada;
+         }else{
+             $faturamento->parcelasPagas = 0;
+         }
+         $faturamento->metodoPagamento = $request->metodoPagamento;
+         $this->faturamentos_controller->criarFaturamento($faturamento);
+      }
+   	return redirect('/home/projetos')->with('message', "Projeto criado com sucesso");
    }
 
    public function store(Projeto $projeto)
