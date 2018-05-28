@@ -20,11 +20,12 @@ class FaturamentosController extends Controller
 
     public function criarFaturamento(Faturamento $faturamento)
     {
-        try {
+        try{
             $faturamento->save();
-        }catch (\Exception $e) {
-           return "ERRO: " . $e->getMessage();
+        }catch(\Exception $e){ 
+            return "ERRO: " . $e->getMessage();
         }
+
     }
 
     public function faturamentos()

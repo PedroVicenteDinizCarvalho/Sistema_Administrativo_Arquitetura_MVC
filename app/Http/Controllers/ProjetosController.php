@@ -65,7 +65,7 @@ class ProjetosController extends Controller
          $faturamento->cliente_id = $request->cliente_id;
          $faturamento->projeto_id = $projeto->id;
          $faturamento->nome_projeto = $request->nome;
-         $faturamento->numeroParcelas = $request->numeroParcelas;
+         $faturamento->numeroParcelas = $request->parcelasPagamento;
          $faturamento->valor = $request->valor;
          if($request->entrada){
             $faturamento->parcelasPagas = $request->entrada;

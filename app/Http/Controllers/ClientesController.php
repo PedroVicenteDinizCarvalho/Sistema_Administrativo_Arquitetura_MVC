@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Validator;
 class ClientesController extends Controller
 {
    private $projetos_controller;
+   private $faturamentos_controller;
    private $cliente;
 
-   public function __construct(ProjetosController $projetos_controller)
+   public function __construct(ProjetosController $projetos_controller, FaturamentosController $faturamentos_controller)
    {
+      $this->faturamentos_controller = $faturamentos_controller;
       $this->projetos_controller = $projetos_controller;
       $this->cliente = new Cliente();
    }
@@ -81,6 +83,20 @@ class ClientesController extends Controller
             $projeto->tipoParcelasPagamento = $request->tipoParcelasPagamento;
             $projeto->cliente_id = $cliente->id;
             $this->projetos_controller->store($projeto);
+   //Injeção de dependencia faturamentos
+            $faturamento = new Faturamento();
+            $faturamento->cliente_id = $cliente->id;
+            $faturamento->projeto_id = $projeto->id;
+            $faturamento->nome_projeto = $request->nomeProjeto;
+            $faturamento->numeroParcelas = $request->parcelasPagamento;
+            $faturamento->valor = $request->valor;
+            if($request->entrada){
+               $faturamento->parcelasPagas = $request->entrada;
+            }else{
+               $faturamento->parcelasPagas = 0;
+            }
+            $faturamento->metodoPagamento = $request->metodoPagamento;
+            $this->faturamentos_controller->criarFaturamento($faturamento);
          }
    		return redirect('/home/clientes')->with('message', "Cliente criado com sucesso");
    }
