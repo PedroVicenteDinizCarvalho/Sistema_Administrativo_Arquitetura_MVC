@@ -42,6 +42,10 @@ Route::group(['prefix' => 'home'], function() {
 //Faturar Projeto -- Mandar Para área de Faturamento
 	Route::get('/projetos/{id}/faturar', 'ProjetosController@faturar');
 	Route::post('/projetos/faturar', 'FaturamentosController@faturaProjeto');
+//Editar Faturamento -- Faturar outras parcelas
+	Route::get('/faturamentos/{projeto_id}/pagar', 'FaturamentosController@faturarOutraParcela');
+	Route::post('faturamentos/confirmarPagamento', 'FaturamentosController@confirmarPagamento');
+	Route::post('faturamentos/finalizarFaturamento', 'FaturamentosController@finalizarFaturamento');
 //Pesquisar Projetos
 	Route::post('/projetos/busca', 'ProjetosController@busca');
 //Clientes passando letra como critério

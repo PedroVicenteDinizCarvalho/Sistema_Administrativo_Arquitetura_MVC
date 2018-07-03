@@ -17,12 +17,13 @@
 				<div class="card-header">
 					<h6>Id:  {{ $faturamento->id }}</h6>
    					<p><strong>Nome do Projeto: </strong>{{$faturamento->nome_projeto}}</p>
+   			<!-- Faturamentos pendente e botão para faturar -->
    					@if($faturamento->numeroParcelas === $faturamento->parcelasPagas)
 						<p><strong>Pagamento COMPLETO <i class="material-icons">money_off</i></strong></p>
    					@endif
    					@if($faturamento->numeroParcelas > $faturamento->parcelasPagas)
    						<p><strong>Pagamento PENDENTE <i class="material-icons">monetization_on</i></strong></p>
-						<a href="{{ url("home/faturamentos/$faturamento->id/pagar") }}" class="btn btn-primary">Faturar</a>
+						<a href="{{ url("home/faturamentos/$faturamento->projeto_id/pagar") }}" class="btn btn-primary">Faturar</a>
    					@endif
 				</div>
   				<div class="card-body">

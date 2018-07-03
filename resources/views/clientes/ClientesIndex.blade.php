@@ -1,4 +1,4 @@
-@extends('template.app')
+@extends('template.app') 
 
 @section('content')
   <div class="col-md-12 row">
@@ -24,11 +24,14 @@
       @endforeach
     </div>
   </div>
-	<button class="btn btn-primary"><a style="color: #fff" href="{{ url('home/clientes/adicionar') }}"> Adicionar Clientes</a></button>
-
+<!-- Adicionar Cliente -->
+  <div class="col-md-12">
+    <button class="btn btn-primary"><a style="color: #fff" href="{{ url('home/clientes/adicionar') }}"> Adicionar Clientes <i class="material-icons">add</i></a></button>
+  </div>
+<!-- Lista Clientes -->
 	<div class="row" style="margin-top: 50px;">
 		@foreach($clientes as $cliente)
-		<div class="col-sm-4" style="margin-top: 5px;">
+		<div class="col-sm-6" style="margin-top: 5px;">
 			 <div class="card">
           <div class="card-header">
             <i class="material-icons">assignment_ind</i>
@@ -51,6 +54,7 @@
     				<h6><strong>Email:</strong></h6><h6>{{ $cliente->email }}</h6>
     				<h6>Cliente Desde:<strong></strong></h6><h6>{{ $cliente->created_at}}</h6>
             <h6><strong>Projetos do Cliente:</strong></h6>
+        <!-- Tabela com Projetos e Pendências do Cliente -->
             <table class="table">
               <thead>
                 <tr>
@@ -61,19 +65,19 @@
               <tbody>
                 <tr>
                   <td>
-                  @foreach($cliente->projetos as $projeto)
-                    {{ $projeto->nome }}<br/>
-                  @endforeach
+                    @foreach($cliente->projetos as $projeto)
+                      {{ $projeto->nome }}<br/>
+                    @endforeach
                   </td>
                   <td>
-                  @foreach($cliente->faturamentos as $faturamento)
-                    @if($faturamento->numeroParcelas === $faturamento->parcelasPagas)
-                      <p><strong><i class="material-icons">money_off</i></strong></p>
-                    @endif
-                    @if($faturamento->numeroParcelas > $faturamento->parcelasPagas)
-                      <p><strong><i class="material-icons">monetization_on</i></strong></p>
-                    @endif
-                  @endforeach
+                    @foreach($cliente->faturamentos as $faturamento)
+                      @if($faturamento->numeroParcelas === $faturamento->parcelasPagas)
+                        <p><strong><i class="material-icons">money_off</i></strong></p>
+                      @endif
+                      @if($faturamento->numeroParcelas > $faturamento->parcelasPagas)
+                        <p><strong><i class="material-icons">monetization_on</i></strong></p>
+                      @endif
+                    @endforeach
                   </td>
                 </tr>
               </tbody>
