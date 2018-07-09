@@ -70,7 +70,7 @@ class ClientesController extends Controller
                ->withInput($request->all());
          }
    		$cliente = Cliente::create($request->all());
-//Caso tenha o formulário projeto preenchido
+   //Injeção de dependencia projetos
          if ($request->tipo && $request->nome && $request->prazoEntrega && $request->tipoPrazoEntrega && $request->valor && $request->metodoPagamento && $request->parcelasPagamento && $request->tipoParcelasPagamento){
             $projeto = new Projeto();
             $projeto->tipo = $request->tipo;
@@ -90,11 +90,7 @@ class ClientesController extends Controller
             $faturamento->nome_projeto = $request->nomeProjeto;
             $faturamento->numeroParcelas = $request->parcelasPagamento;
             $faturamento->valor = $request->valor;
-            if($request->entrada){
-               $faturamento->parcelasPagas = $request->entrada;
-            }else{
-               $faturamento->parcelasPagas = 0;
-            }
+            $faturamento->parcelasPagas = 0;
             $faturamento->metodoPagamento = $request->metodoPagamento;
             $this->faturamentos_controller->criarFaturamento($faturamento);
          }

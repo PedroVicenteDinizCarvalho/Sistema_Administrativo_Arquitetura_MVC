@@ -2,13 +2,28 @@
 
 @section('content')
 	<div class="col-md-12 row">
-		<h1 class="col-md-9"> Faturamentos </h1>
-		<form action="{{ url("home/faturamentos/busca") }}" method="POST">
-			<input type="text"  name="criterio" class="form-control" placeholder="Buscar...">
-			<span class="input-group-btn">
-            	<button class="btn btn-default" type="submit"><i class="material-icons">search</i></button>
-          	</span>
-		</form>
+		<h1 class="col-md-6"> Faturamentos </h1>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+  			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  				<ul class="navbar-nav mr-auto">
+					<li class="nav nav-item">
+						<a href="{{ url('home/faturamentos/analise') }}" class="nav-link">Análises</a>
+					</li>
+					<li class="nav nav-item">
+						<a href="{{ url('home/faturamentos/historico') }}" class="nav-link">Histórico</a>
+					</li>
+					<li class="nav nav-item col-md-12">
+						<form action="{{ url("home/faturamentos/busca") }}" method="POST" class="form-inline">
+      						<input class="form-control col-md-8" type="search" placeholder="Buscar..." aria-label="Search" name="criterio">
+      						<button class="btn btn-outline-success col-md-4" type="submit">Search</button>
+    					</form>
+					</li>
+				</ul>
+			</div>
+		</nav>
 	</div>
 	<div class="row">
 		@foreach($faturamentos as $faturamento)

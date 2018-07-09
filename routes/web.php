@@ -17,6 +17,7 @@ Route::group(['prefix' => 'home'], function() {
 	Route::get('/projetos', 'ProjetosController@projetos');
 	Route::get('/clientes', 'ClientesController@clientes');
 	Route::get('/faturamentos', 'FaturamentosController@faturamentos');
+	Route::get('/administrativo', 'Controller@administrativo');
 //Formulário e Criação de Clientes
 	Route::get('/clientes/adicionar', 'ClientesController@pagAdicionarCliente');
 	Route::post('/criarCliente', 'ClientesController@store');
@@ -42,6 +43,10 @@ Route::group(['prefix' => 'home'], function() {
 //Faturar Projeto -- Mandar Para área de Faturamento
 	Route::get('/projetos/{id}/faturar', 'ProjetosController@faturar');
 	Route::post('/projetos/faturar', 'FaturamentosController@faturaProjeto');
+//Análises Financeira
+	Route::get('/faturamentos/analise', 'FaturamentosController@analise');
+//Histórico de Faturas
+	Route::get('/faturamentos/historico', 'FaturamentosHistoricosController@historico');
 //Editar Faturamento -- Faturar outras parcelas
 	Route::get('/faturamentos/{projeto_id}/pagar', 'FaturamentosController@faturarOutraParcela');
 	Route::post('faturamentos/confirmarPagamento', 'FaturamentosController@confirmarPagamento');

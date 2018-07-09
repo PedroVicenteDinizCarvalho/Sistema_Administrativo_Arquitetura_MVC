@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Faturamento;
 use App\Cliente;
 use App\Projeto;
+use App\FaturamentoHistorico;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -12,9 +13,11 @@ use Illuminate\Support\Facades\Validator;
 class FaturamentosController extends Controller
 {
     private $faturamento;
+    private $faturamentoshistoricos_controller;
 
-    public function __construct()
+    public function __construct(FaturamentosHistoricosController $faturamentoshistoricos_controller)
     {
+        $this->faturamentoshistoricos_controller = $faturamentoshistoricos_controller;
         $this->faturamento = new Faturamento();
     }
 
@@ -25,7 +28,6 @@ class FaturamentosController extends Controller
         }catch(\Exception $e){ 
             return "ERRO: " . $e->getMessage();
         }
-
     }
 
     public function faturamentos()
@@ -82,7 +84,19 @@ class FaturamentosController extends Controller
     {
         $faturamento = $this->getFaturamentoId($request->id);
         $faturamento->update($request->all());
-        return redirect('home/faturamentos');
+    //Cria Tabela Espelho de todos faturamentos
+        $faturamentoHistorico = new FaturamentoHistorico();
+        $faturamentoHistorico->cliente_id = $request->cliente_id;
+        $faturamentoHistorico->projeto_id = $request->projeto_id;
+        $faturamentoHistorico->nome_projeto = $request->nome_projeto;
+        $faturamentoHistorico->numeroParcelas = $request->numeroParcelas;
+        $faturamentoHistorico->valor = $request->valor;
+        $faturamentoHistorico->parcelasFaturadas = $request->numeroParcelasPagar;
+        $faturamentoHistorico->valorFaturamento = $request->totalFatura;
+        $faturamentoHistorico->metodoPagamento = $request->metodoPagamento;
+        $this->faturamentoshistoricos_controller->criarFaturamentoHistorico($faturamentoHistorico);
+        
+        return redirect('/home/faturamentos')->with('message', "Faturamento realizado com sucesso");
     }
 
     private function getFaturamentoId($id)
@@ -93,5 +107,13 @@ class FaturamentosController extends Controller
     private function getFaturamento($projeto_id)
     {
         return $this->faturamento->find($projeto_id); 
+    }
+
+    public function analise()
+    {
+        $list_faturamentos=Faturamento::all();
+        return view('faturamentos.analise', [
+            'faturamentos' => $list_faturamentos->all()
+        ]);
     }
 }

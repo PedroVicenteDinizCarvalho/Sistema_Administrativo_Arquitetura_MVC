@@ -21,8 +21,6 @@
 	 			<a href="{{ url("home/projetos/$projeto->id/editar") }}" class="btn btn-primary">Editar <i class="material-icons">edit</i></a>
 	 			<!--Link para Excluir projeto-->
 	 			<a style="margin-top: 5px;" href="{{ url("home/projetos/$projeto->id/deletar") }}" class="btn btn-primary">Deletar <i class="material-icons">delete</i></a>
-	 			<!--Link Para Faturar Projeto-->
-	 			<a style="margin-top: 5px;" href="{{ url("home/projetos/$projeto->id/faturar") }}" class="btn btn-primary">Faturar<i class="material-icons">attach_money</i></a>
   				<div class="card-body">
     				<p class="card-text">Dados do Projeto:</p>
     				<h6><strong>Tipo de Projeto:</strong></h6><h6>{{ $projeto->tipo }}</h6>
