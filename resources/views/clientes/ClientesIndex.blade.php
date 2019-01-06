@@ -3,7 +3,8 @@
 @section('content')
   <div class="col-md-12 row">
     <h1 class="col-md-9"> Clientes </h1>
-<!-- Formulário de Busca -->
+
+<!-- -------------- Formulário de Busca ---------------- -->
       <div class="col-md-3">
         <form action="{{ url('home/clientes/busca') }}" method="POST">
           {{ csrf_field() }}
@@ -24,10 +25,12 @@
       @endforeach
     </div>
   </div>
+
 <!-- Adicionar Cliente -->
   <div class="col-md-12">
     <button class="btn btn-primary"><a style="color: #fff" href="{{ url('home/clientes/adicionar') }}"> Adicionar Clientes <i class="material-icons">add</i></a></button>
   </div>
+  
 <!-- Lista Clientes -->
 	<div class="row" style="margin-top: 50px;">
 		@foreach($clientes as $cliente)

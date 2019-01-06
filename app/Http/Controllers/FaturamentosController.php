@@ -84,7 +84,8 @@ class FaturamentosController extends Controller
     {
         $faturamento = $this->getFaturamentoId($request->id);
         $faturamento->update($request->all());
-    //Cria Tabela Espelho de todos faturamentos
+
+///////////////Cria Tabela Espelho de todos faturamentos Finalizados////////////////
         $faturamentoHistorico = new FaturamentoHistorico();
         $faturamentoHistorico->cliente_id = $request->cliente_id;
         $faturamentoHistorico->projeto_id = $request->projeto_id;
@@ -109,6 +110,7 @@ class FaturamentosController extends Controller
         return $this->faturamento->find($projeto_id); 
     }
 
+//////////////////////////Análises de Faturamento///////////////////////////
     public function analise()
     {
         $list_faturamentos=Faturamento::all();

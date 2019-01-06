@@ -3,12 +3,13 @@
 @section('content')
 	<div class="col-md-12 row">
 		<h1 class="col-md-9">Projetos</h1>
-		 <form class="form-inline col-md-3">
+		 <form action="{{ url('home/projetos/busca') }}" method="POST" class="form-inline col-md-3">
 		 	{{ csrf_field() }}
-      		<input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" name="criterio">
-      		<button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
+      			<input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" name="criterio">
+      			<button class="btn btn-primary" type="submit"><i class="material-icons">search</i></button>
     	</form>
 	</div>
+	
 	<div class="row">
 		@foreach($projetos as $projeto)
 		 <div class="col-md-4" style="margin-top: 5px;">

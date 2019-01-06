@@ -153,6 +153,10 @@
 							<span>À Vista</span>
 						</label></p>
 				</div>
+				<div class="form-group col-md-12">
+					<label for="entrada"><h6>Entrada N°:</h6></label>
+					<input type="number" name="entrada" id="entrada" class="form-control">
+				</div> 
 				<button type="submit" class="btn btn-primary" style="float: right;">Adicionar</button>
 		</form>
 	</div>

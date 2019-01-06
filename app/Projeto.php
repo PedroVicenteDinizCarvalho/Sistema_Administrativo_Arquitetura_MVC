@@ -29,7 +29,9 @@ class Projeto extends Model
       return $this->hasOne(Faturamento::class, 'id');
     }
 //Critério de Busca
-    public static function buscaProjeto($criterio){
-      return static::where('nome', 'LIKE', '%' . $criterio . '%');
+    public static function busca($criterio)
+    {
+      return static::where('nome', 'LIKE', '%' . $criterio . '%')->get();
     }
+
 }

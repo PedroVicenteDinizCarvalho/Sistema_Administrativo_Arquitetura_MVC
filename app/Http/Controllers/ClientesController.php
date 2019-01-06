@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Projeto;
 use App\Cliente;
 use App\Faturamento;
+use App\FaturamentoHistorico;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -13,34 +14,33 @@ class ClientesController extends Controller
 {
    private $projetos_controller;
    private $faturamentos_controller;
+   private $faturamentosHistoricos_controller;
    private $cliente;
 
-   public function __construct(ProjetosController $projetos_controller, FaturamentosController $faturamentos_controller)
-   {
+   public function __construct(ProjetosController $projetos_controller, FaturamentosController $faturamentos_controller,
+      FaturamentosHistoricosController $faturamentosHistoricos_controller){
+      $this->faturamentosHistoricos_controller = $faturamentosHistoricos_controller;
       $this->faturamentos_controller = $faturamentos_controller;
       $this->projetos_controller = $projetos_controller;
       $this->cliente = new Cliente();
    }
 
-   public function clientes()
-   {
+   public function clientes(){
       $list_clientes=Cliente::all();
       return view('clientes.clientesIndex', [
          'clientes' => $list_clientes
       ]);
    }
 
-   public function clientesCriterio($letra)
-   {
+   public function clientesCriterio($letra){
       $list_clientes=Cliente::clientesLetra($letra);
       return view('clientes.clientesIndex', [
          'clientes' => $list_clientes,
          'criterio' => $letra
       ]);
-   }
+   } 
 
-   public function busca(Request $request)
-   {
+   public function busca(Request $request){
       $clientes = Cliente::busca($request->criterio);
       return view('clientes.clientesIndex', [
          'clientes' => $clientes,
@@ -48,53 +48,66 @@ class ClientesController extends Controller
       ]);
    }
 
-   public function home()
-   {
+   public function home(){
       $list_clientes=Cliente::all();
       return view('home.index', [
          'clientes' => $list_clientes
       ]);
    }
 
-   public function pagAdicionarCliente()
-   {
+   public function pagAdicionarCliente(){
    	return view('clientes.adicionarCliente');
    }
 
-   public function store(Request $request)
-   {
-         $validacao = $this->validacao($request->all());
-         if($validacao->fails()){
-            return redirect()->back()
-               ->withErrors($validacao->errors())
-               ->withInput($request->all());
+   public function store(Request $request){
+      $validacao = $this->validacao($request->all());
+      if($validacao->fails()){
+         return redirect()->back()
+         ->withErrors($validacao->errors())
+            ->withInput($request->all());
+      }
+   	$cliente = Cliente::create($request->all());
+//////Injeção de dependencia projetos////////////////////////////////////////////
+      if($request->tipo && $request->nome && $request->prazoEntrega && $request->tipoPrazoEntrega && $request->valor && $request->metodoPagamento && $request->parcelasPagamento && $request->tipoParcelasPagamento){
+         $projeto = new Projeto();
+         $projeto->tipo = $request->tipo;
+         $projeto->nome = $request->nomeProjeto;
+         $projeto->prazoEntrega = $request->prazoEntrega;
+         $projeto->tipoPrazoEntrega = $request->tipoPrazoEntrega;
+         $projeto->valor = $request->valor;
+         $projeto->metodoPagamento = $request->metodoPagamento;
+         $projeto->parcelasPagamento = $request->parcelasPagamento;
+         $projeto->tipoParcelasPagamento = $request->tipoParcelasPagamento;
+         $projeto->cliente_id = $cliente->id;
+         $this->projetos_controller->store($projeto);
+/////////Injeção de dependencia faturamentos//////////////////////////////
+         $faturamento = new Faturamento();
+         $faturamento->cliente_id = $cliente->id;
+         $faturamento->projeto_id = $projeto->id;
+         $faturamento->nome_projeto = $request->nomeProjeto;
+         $faturamento->numeroParcelas = $request->parcelasPagamento;
+         $faturamento->valor = $request->valor;
+         if($request->entrada){
+            $faturamento->parcelasPagas = $request->entrada;
+////////////Injeção de dependencia com Histórico de Faturamento//////////////
+            $historicoFaturamento = new FaturamentoHistorico();
+            $historicoFaturamento->cliente_id = $request->cliente_id;
+            $historicoFaturamento->projeto_id = $projeto->id;
+            $historicoFaturamento->nome_projeto = $request->nome;
+            $historicoFaturamento->numeroParcelas = $request->parcelasPagamento;
+            $historicoFaturamento->valor = $request->valor;
+            $historicoFaturamento->parcelasFaturadas = $request->entrada;
+            $historicoFaturamento->valorFaturamento = $request->valor / $request->parcelasPagamento * $request->entrada;
+            $historicoFaturamento->metodoPagamento = $request->metodoPagamento;
+////////////Leva os dados para o controller de Histórico de Faturamentos
+            $this->faturamentosHistoricos_controller->criarFaturamentoHistorico($historicoFaturamento);
+         }else{
+            $faturamento->parcelasPagas = 0; 
          }
-   		$cliente = Cliente::create($request->all());
-   //Injeção de dependencia projetos
-         if ($request->tipo && $request->nome && $request->prazoEntrega && $request->tipoPrazoEntrega && $request->valor && $request->metodoPagamento && $request->parcelasPagamento && $request->tipoParcelasPagamento){
-            $projeto = new Projeto();
-            $projeto->tipo = $request->tipo;
-            $projeto->nome = $request->nomeProjeto;
-            $projeto->prazoEntrega = $request->prazoEntrega;
-            $projeto->tipoPrazoEntrega = $request->tipoPrazoEntrega;
-            $projeto->valor = $request->valor;
-            $projeto->metodoPagamento = $request->metodoPagamento;
-            $projeto->parcelasPagamento = $request->parcelasPagamento;
-            $projeto->tipoParcelasPagamento = $request->tipoParcelasPagamento;
-            $projeto->cliente_id = $cliente->id;
-            $this->projetos_controller->store($projeto);
-   //Injeção de dependencia faturamentos
-            $faturamento = new Faturamento();
-            $faturamento->cliente_id = $cliente->id;
-            $faturamento->projeto_id = $projeto->id;
-            $faturamento->nome_projeto = $request->nomeProjeto;
-            $faturamento->numeroParcelas = $request->parcelasPagamento;
-            $faturamento->valor = $request->valor;
-            $faturamento->parcelasPagas = 0;
-            $faturamento->metodoPagamento = $request->metodoPagamento;
-            $this->faturamentos_controller->criarFaturamento($faturamento);
-         }
-   		return redirect('/home/clientes')->with('message', "Cliente criado com sucesso");
+         $faturamento->metodoPagamento = $request->metodoPagamento;
+         $this->faturamentos_controller->criarFaturamento($faturamento);
+      }
+   	return redirect('/home/clientes')->with('message', "Cliente criado com sucesso");
    }
 
    public function editarView($id)

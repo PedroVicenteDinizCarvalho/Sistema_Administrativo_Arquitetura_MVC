@@ -27,6 +27,10 @@ class Cliente extends Model
    public function faturamentos(){
       return $this->hasMany(Faturamento::class, 'cliente_id');
    }
+//Relação com Historico de Faturamento
+   public function faturamentoHistorico(){
+      return $this->hasMany(FaturamentoHistorico::class, 'cliente_id');
+   }
 //Critério de busca por Letra
    public static function clientesLetra($letra)
    {
@@ -36,5 +40,5 @@ class Cliente extends Model
    public static function busca($criterio)
    {
       return static::where('nome', 'LIKE', '%' . $criterio . '%')->get();
-   }
+   } 
 }

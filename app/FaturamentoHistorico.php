@@ -24,7 +24,7 @@ class FaturamentoHistorico extends Model
    	public function projeto(){
    		return $this->hasMany(Projeto::class, 'id');
    	}
-//Relação com Cliente
+   //Relação com Cliente
    	public function cliente(){
       	return $this->belongsTo(Cliente::class, 'cliente_id');
    	}    

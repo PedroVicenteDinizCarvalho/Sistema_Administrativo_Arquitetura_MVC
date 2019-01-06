@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Projeto;
 use App\Faturamento;
+use App\FaturamentoHistorico;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -12,10 +13,12 @@ use Illuminate\Support\Facades\Validator;
 class ProjetosController extends Controller
 {
    private $faturamentos_controller;
+   private $faturamentosHistoricos_controller;
    private $projeto;
    
-   public function __construct(FaturamentosController $faturamentos_controller)
+   public function __construct(FaturamentosController $faturamentos_controller, FaturamentosHistoricosController $faturamentosHistoricos_controller)
    {
+      $this->faturamentosHistoricos_controller = $faturamentosHistoricos_controller;
       $this->faturamentos_controller = $faturamentos_controller;
       $this->projeto = new Projeto();
    }
@@ -28,12 +31,20 @@ class ProjetosController extends Controller
    	]);
    }
 
-   public function busca($criterio)
+   public function busca(Request $request)
    {
-      $projetos = Projeto::buscaProjeto($request->criterio);
+      $projetos = Projeto::busca($request->criterio);
       return view('projetos.ProjetosIndex', [
          'projetos' => $projetos,
          'criterio' => $request->criterio
+      ]);
+   }
+
+   public function projetosCriterio($letra){
+      $list_projetos=Projeto::projetosLetra($letra);
+      return view('projetos.ProjetosIndex', [
+         'projetos' => $list_projetos,
+         'criterio' => $letra
       ]);
    }
 
@@ -59,7 +70,7 @@ class ProjetosController extends Controller
             ->withInput($request->all());
       }
    	$projeto = Projeto::create($request->all());
-//Injeção de dependencia faturamentos
+//////Injeção de dependencia faturamentos////////////////////////////////////
       if($request->metodoPagamento){
          $faturamento = new Faturamento();
          $faturamento->cliente_id = $request->cliente_id;
@@ -69,14 +80,27 @@ class ProjetosController extends Controller
          $faturamento->valor = $request->valor;
          if($request->entrada){
             $faturamento->parcelasPagas = $request->entrada;
+////////////Se conter entrada então cria-se um histórico de Faturamento//////////
+            $historicoFaturamento = new FaturamentoHistorico();
+            $historicoFaturamento->cliente_id = $request->cliente_id;
+            $historicoFaturamento->projeto_id = $projeto->id;
+            $historicoFaturamento->nome_projeto = $request->nome;
+            $historicoFaturamento->numeroParcelas = $request->parcelasPagamento;
+            $historicoFaturamento->valor = $request->valor;
+            $historicoFaturamento->parcelasFaturadas = $request->entrada;
+            $historicoFaturamento->valorFaturamento = $request->valor / $request->parcelasPagamento * $request->entrada;
+            $historicoFaturamento->metodoPagamento = $request->metodoPagamento;
+////////////Leva os dados para o controller de Histórico de Faturamentos
+            $this->faturamentosHistoricos_controller->criarFaturamentoHistorico($historicoFaturamento);
          }else{
-             $faturamento->parcelasPagas = 0;
+            $faturamento->parcelasPagas = 0;
          }
          $faturamento->metodoPagamento = $request->metodoPagamento;
+/////////Leva os dados para o controller de Faturamentos
          $this->faturamentos_controller->criarFaturamento($faturamento);
       }
    	return redirect('/home/projetos')->with('message', "Projeto criado com sucesso");
-   }
+   } 
 
    public function store(Projeto $projeto)
    {
